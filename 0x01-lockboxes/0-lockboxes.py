@@ -1,14 +1,17 @@
 #!/usr/bin/python3
-
 """ a method that determines if all the boxes can be opened """
 
+
 def canUnlockAll(boxes):
-    """ takes a list of a list """
-    
+    """Function that takes a list of a list and the
+    contents of a list will unlock other lists
+    """
+
     keys = [0]
     for key in keys:
         for boxkey in boxes[key]:
-            if boxkey not in keys and boxkey < len(boxes):
-                keys.append(boxkey)
+            if boxKey not in keys and boxKey < len(boxes):
+                keys.append(boxKey)
+    return len(keys) == len(boxes)  #check
 
-    return len(keys) == len(boxes)
+# Remove whitespace
