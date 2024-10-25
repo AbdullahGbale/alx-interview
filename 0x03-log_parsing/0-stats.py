@@ -1,33 +1,33 @@
 #!/usr/bin/python3
-'''
-A script that reads inputs line by line and computes the stats.
-'''
+"""
+Script that reads stdin line by line and computes metrics
+"""
 import sys
 
 
 def main():
     """
-    The main
+    Main function
     """
-    total_file_size = 0
-    status_code_count = ["200", "301", "400", "401", "403", "404", "405", "500"]
-    line_count = 0
-    stats = {k: 0 for k in status_code_count}
+    file_size = 0
+    count = 0
+    status_codes = ["200", "301", "400", "401", "403", "404", "405", "500"]
+    stats = {k: 0 for k in status_codes}
 
-    def print_stats():
+    def print_statistics():
         """
-        Print the aggregated statistics
+        Print the accumulated statistics
         """
-        print("File size: {:d}".format(total_file_size))
+        print("File size: {:d}".format(file_size))
         for k, v in sorted(stats.items()):
             if v:
                 print("{}: {}".format(k, v))
 
     try:
         for line in sys.stdin:
-             line_count += 1
-             data = line.split()
-             try:
+            count += 1
+            data = line.split()
+            try:
                 # Assuming the status code is the second-to-last element
                 sc = data[-2]
                 if sc in stats:
@@ -36,17 +36,17 @@ def main():
                 pass
             try:
                 # Assuming the file size is the last element
-                total_file_size += int(data[-1])
+                file_size += int(data[-1])
             except (IndexError, ValueError):
                 pass
 
-            if line_count % 10 == 0:
-                print_stats()
+            if count % 10 == 0:
+                print_statistics()
 
-        print_stats()
+        print_statistics()
 
     except KeyboardInterrupt:
-        print_stats()
+        print_statistics()
         raise
 
 
